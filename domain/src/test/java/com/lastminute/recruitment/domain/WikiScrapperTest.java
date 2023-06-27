@@ -4,8 +4,6 @@ import com.google.common.collect.Lists;
 import com.lastminute.recruitment.domain.error.WikiPageNotFound;
 import org.junit.jupiter.api.Test;
 
-import java.net.MalformedURLException;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -18,7 +16,7 @@ public class WikiScrapperTest {
     private final WikiScrapper wikiScrapper = new WikiScrapper(wikiReaderMock, wikiPageRepositoryMock);
 
     @Test
-    public void handlesWikiPageNotFoundException() throws MalformedURLException {
+    public void handlesWikiPageNotFoundException() {
         when(wikiReaderMock.read(any())).thenThrow(WikiPageNotFound.class);
         String testUrl = "testUrl";
         wikiScrapper.read(testUrl);
@@ -27,16 +25,7 @@ public class WikiScrapperTest {
     }
 
     @Test
-    public void handlesMalformedUrlException() throws MalformedURLException {
-        when(wikiReaderMock.read(any())).thenThrow(MalformedURLException.class);
-        String testUrl = "testUrl";
-        wikiScrapper.read(testUrl);
-        verify(wikiReaderMock, times(1)).read(testUrl);
-        verify(wikiPageRepositoryMock, times(0)).save(any());
-    }
-
-    @Test
-    public void handlesCorrectUrl() throws MalformedURLException  {
+    public void handlesCorrectUrl() {
         when(wikiReaderMock.read("page1")).thenReturn(new WikiPage("title", "content", "selfLink", Lists.newArrayList()));
 
         wikiScrapper.read("page1");
@@ -46,7 +35,7 @@ public class WikiScrapperTest {
     }
 
     @Test
-    public void handlesLoopedWikiPages() throws MalformedURLException  {
+    public void handlesLoopedWikiPages() {
         WikiPage expectedWikiPage1 = new WikiPage("title", "content", "selfLink", Lists.newArrayList("page2", "page3"));
         WikiPage expectedWikiPage2 = new WikiPage("title", "content", "selfLink", Lists.newArrayList("page3", "page1"));
         WikiPage expectedWikiPage3 = new WikiPage("title", "content", "selfLink", Lists.newArrayList("page1", "page3"));
