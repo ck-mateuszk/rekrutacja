@@ -17,7 +17,7 @@ public class WikiScrapperResource {
     @Autowired
     private WikiScrapper wikiScrapper;
 
-    static final Logger LOG = LoggerFactory.getLogger(WikiScrapperResource.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WikiScrapperResource.class);
 
     @PostMapping("/scrap")
     public void scrapWikipedia(@RequestBody String link) {

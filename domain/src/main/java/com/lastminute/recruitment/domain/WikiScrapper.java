@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 public class WikiScrapper {
 
-    static final Logger LOG = LoggerFactory.getLogger(WikiScrapper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WikiScrapper.class);
 
     private final WikiReader wikiReader;
     private final WikiPageRepository repository;
