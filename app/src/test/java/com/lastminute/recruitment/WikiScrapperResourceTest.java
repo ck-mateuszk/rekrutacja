@@ -35,4 +35,11 @@ public class WikiScrapperResourceTest {
         // acceptance criteria specify nothing about reading the scrapped page
     }
 
+    @Test
+    public void shouldReturn400ForValidationException() {
+        WebTestClient.ResponseSpec response = webTestClient.post().uri("/wiki/scrap").bodyValue("").exchange();
+
+        response.expectStatus().isBadRequest();
+    }
+
 }
