@@ -9,6 +9,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +25,7 @@ public class HtmlWikiReader implements WikiReader {
     public WikiPage read(String link){
         String fileName = htmlWikiClient.readHtml(link);
 
-        Document document = Jsoup.parse(fileName);
+        Document document = readHtml(fileName);
         Elements elements = document.getAllElements();
         if (elements.size() == 0) throw new WikiPageNotFound();
 
@@ -33,6 +35,16 @@ public class HtmlWikiReader implements WikiReader {
         List<String> links = getLinks(document);
 
         return new WikiPage(title, content, selfLink, links);
+    }
+
+    private static Document readHtml(String fileName) {
+        Document document;
+        try {
+            document = Jsoup.parse(new File(fileName), "UTF-8");
+        } catch (IOException e) {
+            throw new WikiPageNotFound();
+        }
+        return document;
     }
 
     private static List<String> getLinks(Document document) {
