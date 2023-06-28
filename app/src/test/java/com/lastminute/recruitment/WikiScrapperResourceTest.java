@@ -29,7 +29,7 @@ public class WikiScrapperResourceTest {
 
     @Test
     public void shouldReturn200ForExistingWikiPage() {
-        WebTestClient.ResponseSpec response = webTestClient.post().uri("/wiki/scrap").bodyValue("\"http://wikiscrapper.test/site1\"").exchange();
+        WebTestClient.ResponseSpec response = webTestClient.post().uri("/wiki/scrap").bodyValue("\"http://wikiscrapper.test/site5\"").exchange();
 
         response.expectStatus().isOk();
         // acceptance criteria specify nothing about reading the scrapped page
