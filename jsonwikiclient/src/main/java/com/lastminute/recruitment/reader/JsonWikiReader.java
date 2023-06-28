@@ -5,6 +5,7 @@ import com.lastminute.recruitment.client.JsonWikiClient;
 import com.lastminute.recruitment.domain.WikiPage;
 import com.lastminute.recruitment.domain.WikiReader;
 import com.lastminute.recruitment.domain.error.WikiPageNotFound;
+import com.lastminute.recruitment.dto.JsonWikiPage;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,13 +23,13 @@ public class JsonWikiReader implements WikiReader {
 
         if (fileName == null) throw new WikiPageNotFound();
         ObjectMapper objectMapper = new ObjectMapper();
-        WikiPage wikiPage;
+        JsonWikiPage wikiPage;
         try {
-            wikiPage = objectMapper.readValue(new File(fileName), WikiPage.class);
+            wikiPage = objectMapper.readValue(new File(fileName), JsonWikiPage.class);
         } catch (IOException e) {
             throw new WikiPageNotFound();
         }
 
-        return wikiPage;
+        return new WikiPage(wikiPage.getTitle(), wikiPage.getContent(), wikiPage.getSelfLink(), wikiPage.getLinks());
     }
 }
