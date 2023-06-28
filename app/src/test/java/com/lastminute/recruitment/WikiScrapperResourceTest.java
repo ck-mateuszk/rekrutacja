@@ -12,7 +12,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = WikiScrapperResource.class)
-@ActiveProfiles("html")
+@ActiveProfiles("json")
 @Import(WikiScrapperConfiguration.class)
 public class WikiScrapperResourceTest {
 
