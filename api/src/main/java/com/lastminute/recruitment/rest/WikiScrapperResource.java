@@ -17,8 +17,7 @@ public class WikiScrapperResource {
 
     @PostMapping("/scrap")
     public void scrapWikipedia(@RequestBody String link) {
-        throw new WikiPageNotFound();
-        //wikiScrapper.read(link);
+        wikiScrapper.read(link);
     }
 
 }
